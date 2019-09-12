@@ -35,7 +35,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestRegs {
+    public static class BidRequestRegs {
         private Integer coppa;
         private Object ext;
     }
@@ -43,13 +43,13 @@ public class BidRequest {
     @Data
     public static class BidRequestImp {
         private String id;
-        private BidRequestMetric[] metric;
-        private BidRequestBanner banner;
-        private BidRequestVideo video;
-        private BidRequestAudio audio;
+        private BidRequestImpMetric[] metric;
+        private BidRequestImpBanner banner;
+        private BidRequestImpVideo video;
+        private BidRequestImpAudio audio;
         @JSONField(name = "native")
-        private BidRequestNative requestNative;
-        private BidRequestPmp pmp;
+        private BidRequestImpNative impNative;
+        private BidRequestImpPmp pmp;
         private String displaymanager;
         private String displaymanagerver;
         private Integer instl = 0;
@@ -64,7 +64,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestMetric {
+    public static class BidRequestImpMetric {
         private String type;
         private Float value;
         private String vendor;
@@ -72,8 +72,8 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestBanner {
-        private BidRequestBannerFormat[] format;
+    public static class BidRequestImpBanner {
+        private BidRequestImpBannerFormat[] format;
         private Integer w;
         private Integer h;
         // DEPRECATED
@@ -97,7 +97,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestVideo {
+    public static class BidRequestImpVideo {
         private String[] mimes;
         private Integer minduration;
         private Integer maxduration;
@@ -129,7 +129,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestAudio {
+    public static class BidRequestImpAudio {
         private String[] mimes;
         private Integer minduration;
         private Integer maxduration;
@@ -152,7 +152,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestNative {
+    public static class BidRequestImpNative {
         private String request;
         private String ver;
         private Integer[] api;
@@ -161,7 +161,13 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestBannerFormat {
+    public static class BidRequestImpNativeRequest {
+        @JSONField(name = "native")
+        private NativeRequest nativeRequest;
+    }
+
+    @Data
+    public static class BidRequestImpBannerFormat {
         private Integer w;
         private Integer h;
         private Integer wratio;
@@ -171,14 +177,14 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestPmp {
+    public static class BidRequestImpPmp {
         private Integer private_auction = 0;
-        private BidRequestPmpDeal[] deals;
+        private BidRequestImpPmpDeal[] deals;
         private Object ext;
     }
 
     @Data
-    private static class BidRequestPmpDeal {
+    public static class BidRequestImpPmpDeal {
         private String id;
         private Float bidfloor = 0f;
         private String bidfloorcur = "USD";
@@ -227,7 +233,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestPublisher {
+    public static class BidRequestPublisher {
         private String id;
         private String name;
         private String[] cat;
@@ -236,7 +242,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestContent {
+    public static class BidRequestContent {
         private String id;
         private Integer episode;
         private String title;
@@ -267,7 +273,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestContentProducer {
+    public static class BidRequestContentProducer {
         private String id;
         private String name;
         private String[] cat;
@@ -307,11 +313,19 @@ public class BidRequest {
         private String dpidmd5;
         private String macsha1;
         private String macmd5;
-        private Object ext;
+        private BidRequestDeviceExt ext;
     }
 
     @Data
-    private static class BidRequestGeo {
+    public static class BidRequestDeviceExt {
+        private String imei;
+        private String idfa;
+        private String androidid;
+        private String mac;
+    }
+
+    @Data
+    public static class BidRequestGeo {
         private Float lat;
         private Float lon;
         private Integer type;
@@ -342,7 +356,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestData {
+    public static class BidRequestData {
         private String id;
         private String name;
         private BidRequestDataSegment[] segment;
@@ -350,7 +364,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class BidRequestDataSegment {
+    public static class BidRequestDataSegment {
         private String id;
         private String name;
         private String value;
@@ -358,7 +372,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class NativeRequest {
+    public static class NativeRequest {
         private String ver = "1.2";
         private Integer context;
         private Integer contextsubtype;
@@ -374,7 +388,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class NativeRequestAsset {
+    public static class NativeRequestAsset {
         private int id;
         private int required = 0;
         private NativeRequestAssetTitle title;
@@ -385,13 +399,13 @@ public class BidRequest {
     }
 
     @Data
-    private static class NativeRequestAssetTitle {
+    public static class NativeRequestAssetTitle {
         private Integer len;
         private Object ext;
     }
 
     @Data
-    private static class NativeRequestAssetImage {
+    public static class NativeRequestAssetImage {
         private Integer type;
         private Integer w;
         private Integer wmin;
@@ -402,7 +416,7 @@ public class BidRequest {
     }
 
     @Data
-    private static class NativeRequestVideo {
+    public static class NativeRequestVideo {
         private String[] mimes;
         private Integer minduration;
         private Integer maxduration;
@@ -411,14 +425,14 @@ public class BidRequest {
     }
 
     @Data
-    private static class NativeRequestData {
+    public static class NativeRequestData {
         private Integer type;
         private Integer len;
         private Object ext;
     }
 
     @Data
-    private static class NativeRequestEventTracker {
+    public static class NativeRequestEventTracker {
         private Integer event;
         private Integer[] methods;
         private Object ext;
