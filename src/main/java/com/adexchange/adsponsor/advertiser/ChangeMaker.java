@@ -8,8 +8,10 @@ import com.adexchange.adsponsor.util.WebUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.UUID;
+
 public class ChangeMaker {
-    public BidResponse getAds(BidRequest request, int timeOut) {
+    public BidResponse getAds(BidRequest request, Long advertiserId, int timeOut) {
         BidResponse response = new BidResponse(request.getId(), 0);
         try {
             // 请求实例
@@ -145,8 +147,37 @@ public class ChangeMaker {
                 CMResponse cmResponse = JSON.parseObject(responseResult.getResponse(), CMResponse.class);
                 // 成功
                 if (cmResponse.getRcd() == 1) {
-                    BidResponse.Bid bid = new BidResponse.Bid();
-                    
+                    for (CMResponse.Ad ad : cmResponse.getAd()) {
+                        BidResponse.Bid bid = new BidResponse.Bid();
+                        BidResponse.BidExt bidExt = new BidResponse.BidExt();
+                        bid.setId(UUID.randomUUID().toString());
+                        bid.setImpid(request.getImp()[0].getId());
+                        bid.setPrice(0f);
+                        bid.setAdid(advertiserId.toString());
+                        bid.setCid("");
+                        bid.setCid("");
+                        bid.setW(ad.getWidth());
+                        bid.setH(ad.getHeight());
+                        bid.setBundle(ad.getPack());
+                        bid.setNurl(ad.getWurl());
+                        switch (ad.getAt()) {
+                            case 1:
+                                bidExt.setAdmt(1);
+                                break;
+                            case 2:
+                                bidExt.setAdmt(2);
+                                break;
+                            case 3:
+                                bidExt.setAdmt(3);
+                                break;
+                            case 5:
+                                bidExt.setAdmt(4);
+                                break;
+                            case 7:
+                                bidExt.setAdmt(3);
+                                break;
+                        }
+                    }
                 }
             }
         } catch (Exception e) {

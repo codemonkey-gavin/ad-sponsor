@@ -10,9 +10,12 @@ import java.util.Map;
 @RestController
 public class PublicController {
 
-    @RequestMapping(value = "/bid/{token}", method = RequestMethod.POST)
-    public Map<String, Object> openRTB(@PathVariable("token") String token, @RequestBody BidRequest bidRequest) {
+    @RequestMapping(value = "/bid/{token}/{advertiserid}", method = RequestMethod.POST)
+    public Map<String, Object> openRTB(@PathVariable("token") String token,
+                                       @PathVariable("advertiserid") Long advertiserid,
+                                       @RequestBody BidRequest bidRequest) {
         System.out.println(token);
+        System.out.println(advertiserid);
         System.out.println(JSON.toJSONString(bidRequest));
         Map<String, Object> map = new HashMap<String, Object>();
         return map;

@@ -8,6 +8,7 @@ public class CMResponse {
     private String msg;
     private Ad[] ad;
 
+    @Data
     public static class Ad {
         private Integer at;
         private String adl;
