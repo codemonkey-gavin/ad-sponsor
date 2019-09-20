@@ -14,7 +14,9 @@ import java.util.*;
 @Slf4j
 public class ChangeMaker {
     public BidResponse getAds(BidRequest request, String advertiserId, Integer timeOut) {
-        BidResponse response = new BidResponse(request.getId(), 0);
+        BidResponse response = new BidResponse();
+        response.setId(request.getId());
+
         try {
 
             // 广告位，由广告主提供分配
@@ -147,7 +149,7 @@ public class ChangeMaker {
             }
 
             // 请求广告
-            log.debug("开始请求ChangeMaker广告，参数：{}", JSON.toJSONString(cmRequest));
+            log.info("开始请求ChangeMaker广告，参数：{}", JSON.toJSONString(cmRequest));
             /** 获取当前系统时间*/
             long startTime = System.currentTimeMillis();
             WebResponseResult responseResult = WebUtil.HttpRequestPost("http://tling.bigdata-hub.cn:6688/105003",
@@ -155,7 +157,7 @@ public class ChangeMaker {
             /** 获取当前的系统时间，与初始时间相减就是程序运行的毫秒数*/
             long endTime = System.currentTimeMillis();
             long usedTime = endTime - startTime;
-            log.debug("请求ChangeMaker广告结束，耗时：{}，返回：{}", usedTime, JSON.toJSONString(responseResult));
+            log.info("请求ChangeMaker广告结束，耗时：{}，返回：{}", usedTime, JSON.toJSONString(responseResult));
             // 返回实例
             if (responseResult.getResult() == WebResponseResult.ResultEnum.SUCCESS.getValue()) {
                 CMResponse cmResponse = JSON.parseObject(responseResult.getResponse(), CMResponse.class);
@@ -292,6 +294,7 @@ public class ChangeMaker {
                 }
             }
         } catch (Exception e) {
+            response.setNbr(1);
             log.error(e.getMessage());
         }
         return response;

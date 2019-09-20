@@ -2,20 +2,15 @@ package com.adexchange.adsponsor.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
 public class BidResponse {
-    @NonNull
     private String id;
     private SeatBid[] seatbid;
     private String bidid;
     private String cur = "USD";
     private String customdata;
-    @NonNull
-    private Integer nbr;
+    private Integer nbr = 0;
     private Object ext;
 
     @Data
