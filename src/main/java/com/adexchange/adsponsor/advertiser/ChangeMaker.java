@@ -117,8 +117,8 @@ public class ChangeMaker {
                             terminalInfo.put("apnm", request.getApp().getName());
                             terminalInfo.put("dplink", 1);
                         }
-                        if (null != request.getDevice().getCarrier()) {
-                            terminalInfo.put("si", request.getDevice().getCarrier());
+                        if (null != request.getDevice().getMccmnc()) {
+                            terminalInfo.put("si", request.getDevice().getMccmnc());
                         }
                         switch (request.getDevice().getConnectiontype()) {
                             case 0:
