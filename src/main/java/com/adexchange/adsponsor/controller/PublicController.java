@@ -70,7 +70,7 @@ public class PublicController extends BaseController {
                 String advertiserId = array[1];
                 bidResponse = adDispatcherService.getAds(bidRequest, advertiserId);
             } else {
-                log.debug(JSON.toJSONString(bidRequest));
+                //log.debug(JSON.toJSONString(bidRequest));
                 String json = "{\"id\":\"1\",\"cur\":\"CNY\",\"seatbid\":[{\"bid\":[{\"ext\":{\"deeplinktrackers" +
                         "\":[\"http://adx.cloud-cube.net/adx/dp_track?bidid=15689729089370060292273123&sadid=0&tagid=930" +
                         "&appid=583&did=31\",\"http://data.wedooapp" +
@@ -232,6 +232,9 @@ public class PublicController extends BaseController {
                     seatbids.add(seatBid);
                 }
                 map.put("seatbid", seatbids);
+
+                log.debug("token:{},广告：{}", token, JSON.toJSONString(map));
+
             } else {
                 response.setStatus(HttpStatus.NO_CONTENT.value());
             }

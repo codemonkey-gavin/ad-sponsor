@@ -157,13 +157,13 @@ public class ChangeMaker {
             /** 获取当前的系统时间，与初始时间相减就是程序运行的毫秒数*/
             long endTime = System.currentTimeMillis();
             long usedTime = endTime - startTime;
-            log.info("请求ChangeMaker广告结束，耗时：{}，返回：{}", usedTime, JSON.toJSONString(responseResult));
             // 返回实例
             if (responseResult.getResult() == WebResponseResult.ResultEnum.SUCCESS.getValue()) {
                 CMResponse cmResponse = JSON.parseObject(responseResult.getResponse(), CMResponse.class);
+
+                log.info("请求ChangeMaker广告结束，耗时：{}，返回：{}", usedTime, JSON.toJSONString(cmResponse));
                 // 成功
                 if (cmResponse.getRcd() == 1) {
-                    response.setNbr(200);
                     BidResponse.SeatBid seatBid = new BidResponse.SeatBid();
                     List<BidResponse.Bid> bids = new ArrayList<>();
                     for (CMResponse.Ad ad : cmResponse.getAd()) {
@@ -291,6 +291,7 @@ public class ChangeMaker {
 
                     BidResponse.SeatBid[] seatBidArray = new BidResponse.SeatBid[]{seatBid};
                     response.setSeatbid(seatBidArray);
+                    response.setNbr(200); // 成功
                 }
             }
         } catch (Exception e) {
