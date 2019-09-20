@@ -50,21 +50,21 @@ public class WebUtil {
                     .connectTimeout(timeOut, TimeUnit.MILLISECONDS)
                     .readTimeout(timeOut, TimeUnit.MILLISECONDS)
                     .build();
-//            MediaType mediaType = MediaType.get("application/json; charset=utf-8");
-//            RequestBody requestBody = RequestBody.create(jsonParams, mediaType);
-            RequestBody requestBody = new RequestBody() {
-
-                @Override
-                public void writeTo(@NotNull BufferedSink bufferedSink) throws IOException {
-                    bufferedSink.writeUtf8(jsonParams);
-                }
-
-                @Nullable
-                @Override
-                public MediaType contentType() {
-                    return MediaType.parse("text/x-markdown; charset=utf-8");
-                }
-            };
+            MediaType mediaType = MediaType.get("application/json; charset=utf-8");
+            RequestBody requestBody = RequestBody.create(jsonParams, mediaType);
+//            RequestBody requestBody = new RequestBody() {
+//
+//                @Override
+//                public void writeTo(@NotNull BufferedSink bufferedSink) throws IOException {
+//                    bufferedSink.writeUtf8(jsonParams);
+//                }
+//
+//                @Nullable
+//                @Override
+//                public MediaType contentType() {
+//                    return MediaType.parse("text/x-markdown; charset=utf-8");
+//                }
+//            };
             Request request = new Request.Builder()
                     .addHeader("Content-Type", "application/json")
                     .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0" +

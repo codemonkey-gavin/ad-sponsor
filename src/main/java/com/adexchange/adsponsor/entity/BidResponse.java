@@ -1,5 +1,7 @@
 package com.adexchange.adsponsor.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -95,6 +97,12 @@ public class BidResponse {
         private Integer w;
         private Integer h;
         private String url;
+    }
+
+    @Data
+    public static class BidNativeResponse {
+        @JSONField(name = "native")
+        private BidResponse.NativeResponse nativeResponse;
     }
 
     @Data

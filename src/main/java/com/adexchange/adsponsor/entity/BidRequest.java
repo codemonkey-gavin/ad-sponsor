@@ -1,6 +1,7 @@
 package com.adexchange.adsponsor.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
@@ -25,6 +26,13 @@ public class BidRequest {
     private BidRequestSource source;
     private BidRequestRegs regs;
     private Object ext;
+    private BidRequestRecord record;
+
+    @Data
+    public static class BidRequestRecord {
+        private Integer admode;
+        private Integer os;
+    }
 
     @Data
     public static class BidRequestSource {
@@ -47,7 +55,7 @@ public class BidRequest {
         private BidRequestImpBanner banner;
         private BidRequestImpVideo video;
         private BidRequestImpAudio audio;
-        @JSONField(name = "native")
+        @JsonProperty(value = "native")
         private BidRequestImpNative impNative;
         private BidRequestImpPmp pmp;
         private String displaymanager;

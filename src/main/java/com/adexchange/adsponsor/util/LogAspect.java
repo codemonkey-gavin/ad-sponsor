@@ -14,15 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 @Aspect
 @Component
 public class LogAspect {
-    @Pointcut(value = "execution(* com.adexchange.adsponsor.controller.*.openRTB(..))")
-    public void pointCut(){}
-
-    @Before(value = "pointCut()")
-    public void RequestParams(JoinPoint joinPoint) {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        System.out.println(request.getRequestURL());
-        System.out.println(request.getMethod());
-        System.out.println(JSON.toJSONString(joinPoint.getArgs()));
-    }
+//    @Pointcut(value = "execution(* com.adexchange.adsponsor.controller.*.openRTB(..))")
+//    public void pointCut(){}
+//
+//    @Before(value = "pointCut()")
+//    public void RequestParams(JoinPoint joinPoint) {
+//        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        HttpServletRequest request = attributes.getRequest();
+//        System.out.println(request.getRequestURL());
+//        System.out.println(request.getMethod());
+//        System.out.println(JSON.toJSONString(joinPoint.getArgs()));
+//    }
 }
