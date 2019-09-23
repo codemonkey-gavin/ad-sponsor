@@ -26,24 +26,27 @@ public class PublicController extends BaseController {
     @Autowired
     private AdDispatcherService adDispatcherService;
 
-    @RequestMapping(value = "/bid/{token}", method = RequestMethod.POST)
-    public Map<String,Object> openRTB(@PathVariable("token") String token, @RequestBody BidRequest bidRequest) {
+    @RequestMapping(value = "/bid/{token}", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String openRTB(@PathVariable("token") String token, @RequestBody BidRequest bidRequest) {
 
         Map<String, Object> map = new HashMap<String, Object>();
         try {
             //参数验证
             if (null == bidRequest.getImp()) {
                 response.setStatus(HttpStatus.NO_CONTENT.value());
-                return map;
+                //return map;
+                return "";
             }
             if (null == bidRequest.getDevice()) {
                 response.setStatus(HttpStatus.NO_CONTENT.value());
-                return map;
+                //return map;
+                return "";
             }
             BidRequest.BidRequestRecord record = new BidRequest.BidRequestRecord();
             if (StringUtils.isEmpty(bidRequest.getDevice().getOs())) {
                 response.setStatus(HttpStatus.NO_CONTENT.value());
-                return map;
+                //return map;
+                return "";
             }
             String os = bidRequest.getDevice().getOs();
             switch (os.toLowerCase()) {
@@ -238,6 +241,9 @@ public class PublicController extends BaseController {
             log.error(e.getMessage());
             response.setStatus(HttpStatus.NO_CONTENT.value());
         }
-        return map;
+        String json = JSON.toJSONString(map);
+        response.setContentLength(json.length());
+        //return map;
+        return json;
     }
 }
