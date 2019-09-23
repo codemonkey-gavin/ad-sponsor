@@ -8,6 +8,7 @@ import com.adexchange.adsponsor.util.WebUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
@@ -161,7 +162,7 @@ public class ChangeMaker {
             if (responseResult.getResult() == WebResponseResult.ResultEnum.SUCCESS.getValue()) {
                 CMResponse cmResponse = JSON.parseObject(responseResult.getResponse(), CMResponse.class);
 
-                log.info("请求ChangeMaker广告结束，耗时：{}，返回：{}", usedTime, JSON.toJSONString(cmResponse));
+                log.info("请求ChangeMaker广告结束，耗时：{}，返回：{}", usedTime, responseResult.getResponse());
                 // 成功
                 if (cmResponse.getRcd() == 1) {
                     BidResponse.SeatBid seatBid = new BidResponse.SeatBid();

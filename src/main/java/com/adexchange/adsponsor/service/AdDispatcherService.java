@@ -8,32 +8,39 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.io.InputStream;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 @Slf4j
 @Service
 public class AdDispatcherService {
     public BidResponse getAds(BidRequest request, String advertiserId) {
-        Properties pro = new Properties();
         try {
+            Properties pro = new Properties();
             ClassPathResource classPathResource = new ClassPathResource("ads.properties");
             InputStream inputStream = classPathResource.getInputStream();
             pro.load(inputStream);
             inputStream.close();
             String advertiserName = pro.getProperty(advertiserId);
             if (!StringUtils.isEmpty(advertiserName)) {
-                Class c = Class.forName(advertiserName);
-                Constructor constructor = c.getConstructor();
-                Object object = constructor.newInstance();
-                Method method = c.getMethod("getAds", BidRequest.class, String.class, Integer.class);
-                Object response = method.invoke(object, request, advertiserId, 300);
+                Class<?>  cls = Class.forName(advertiserName);
+                Method method = cls.getMethod("getAds", BidRequest.class, String.class, Integer.class);
+                Object response = method.invoke(cls.newInstance(), request, advertiserId, 200);
                 return (BidResponse) response;
             }
+            return null;
         } catch (Exception e) {
             log.error(e.getMessage());
+            return null;
         }
-        return null;
+
+//        try {
+//            return changeMaker.getAds(request, advertiserId, 200);
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//        }
+//        return null;
     }
 }
