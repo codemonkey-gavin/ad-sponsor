@@ -149,7 +149,7 @@ public class ChangeMaker {
             }
 
             // 请求广告
-            log.info("开始请求ChangeMaker广告，参数：{}", JSON.toJSONString(cmRequest));
+            //log.info("开始请求ChangeMaker广告，参数：{}", JSON.toJSONString(cmRequest));
             /** 获取当前系统时间*/
             long startTime = System.currentTimeMillis();
             WebResponseResult responseResult = WebUtil.HttpRequestPost("http://tling.bigdata-hub.cn:6688/105003",

@@ -56,7 +56,7 @@ public class Adview {
             avRequest.put("device",request.getDevice());
 
             // 请求广告
-            log.info("开始请求Adview广告，参数：{}", JSON.toJSONString(avRequest));
+            //log.info("开始请求Adview广告，参数：{}", JSON.toJSONString(avRequest));
             /** 获取当前系统时间*/
             long startTime = System.currentTimeMillis();
             WebResponseResult responseResult = WebUtil.HttpRequestPost("http://online.quickh5.com/api/public/bid?token=57db835396764b2387d6368816634211",
@@ -68,7 +68,7 @@ public class Adview {
             if (responseResult.getResult() == WebResponseResult.ResultEnum.SUCCESS.getValue()) {
                 AVResponse avResponse = JSON.parseObject(responseResult.getResponse(), AVResponse.class);
 
-                log.info("请求ChangeMaker广告结束，耗时：{}，返回：{}", usedTime, responseResult.getResponse());
+                //log.info("请求Adview广告结束，耗时：{}，返回：{}", usedTime, responseResult.getResponse());
                 if (null != avResponse.getSeatbid() && avResponse.getSeatbid().length > 0) {
                     BidResponse.SeatBid seatBid = new BidResponse.SeatBid();
                     List<BidResponse.Bid> bids = new ArrayList<>();

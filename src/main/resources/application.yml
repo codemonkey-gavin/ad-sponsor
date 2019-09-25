@@ -1,2 +1,9 @@
 server:
   port: 8008
+  compression:
+    enabled: true
+    mime-types: application/json
+  tomcat:
+    max-connections: 20000
+    max-threads: 2000
+
