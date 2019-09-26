@@ -4,6 +4,7 @@ import com.adexchange.adsponsor.advertiser.Adview;
 import com.adexchange.adsponsor.dto.WebResponseResult;
 import com.adexchange.adsponsor.entity.BidRequest;
 import com.adexchange.adsponsor.entity.BidResponse;
+import com.adexchange.adsponsor.entity.CreativeMaterial;
 import com.adexchange.adsponsor.util.WebUtil;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
@@ -21,5 +22,33 @@ public class AdSponsorApplicationTests {
         Adview adview = new Adview();
         BidResponse response = adview.getAds(request, "", 300);
         System.out.println(JSON.toJSONString(response));
+    }
+
+    @Test
+    public void testUploadCreative() {
+        CreativeMaterial creativeMaterial = new CreativeMaterial();
+        CreativeMaterial.Creative creative = new CreativeMaterial.Creative();
+        creative.setAdvertiserid("114604");
+        creative.setCreativeid("802103");
+        creative.setName("test");
+        creative.setLandingpage("http://161.117.83.145:8010/ViewIndex.html");
+        creative.setType(1);
+        CreativeMaterial.CreativeBanner banner = new CreativeMaterial.CreativeBanner();
+        CreativeMaterial.MaterialImage icon = new CreativeMaterial.MaterialImage();
+        icon.setWidth(50);
+        icon.setHeight(50);
+        icon.setUrl("http://161.117.83.145:8010/online/50x50.jpeg");
+        banner.setIcon(icon);
+
+        CreativeMaterial.MaterialImage image = new CreativeMaterial.MaterialImage();
+        image.setWidth(960);
+        image.setHeight(640);
+        image.setUrl("http://161.117.83.145:8010/online/960x640.jpeg");
+        banner.setMaterials(new CreativeMaterial.MaterialImage[]{image});
+        creative.setBanner(banner);
+        creativeMaterial.setCreative(new CreativeMaterial.Creative[]{creative});
+
+        String json = JSON.toJSONString(creativeMaterial);
+        System.out.println(json);
     }
 }

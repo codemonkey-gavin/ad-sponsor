@@ -1,8 +1,11 @@
 package com.adexchange.adsponsor.controller;
 
 import com.adexchange.adsponsor.entity.BidRequest;
+import com.adexchange.adsponsor.entity.CreativeMaterial;
 import com.adexchange.adsponsor.service.AdDispatcherService;
-import lombok.Value;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @RestController
+@RequestMapping("/api")
 public class PublicController {
     private final static String ERROR_MESSAGE = "Task error";
     private final static String TIME_MESSAGE = "Task timeout";
@@ -59,7 +63,7 @@ public class PublicController {
         bidRequest.setRecord(record);
 
         String advertiserId = token;
-        if (token == "582241fcec6842beae98d27f9a51d8da") {
+        if (token.equals("582241fcec6842beae98d27f9a51d8da")) {
             advertiserId = "10002";
         }
         try {
@@ -76,8 +80,32 @@ public class PublicController {
         }
     }
 
-    @RequestMapping(value = "/hi", method = RequestMethod.GET)
-    public String test() {
-        return "Hello World!";
+    @RequestMapping(value = "/creative/upload/{token}", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String creativeUpload(@PathVariable("token") String token, @RequestBody CreativeMaterial creativeMaterial, HttpServletResponse response) {
+        if (!"c6819b097bc647dab260084ae0586265".equals(token)) {
+            response.setStatus(HttpStatus.NO_CONTENT.value());
+            return "";
+        }
+        log.trace(JSON.toJSONString(creativeMaterial));
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        if (null != creativeMaterial && creativeMaterial.getCreative().length > 0) {
+            json.put("code", 0);
+            for (CreativeMaterial.Creative creative : creativeMaterial.getCreative()) {
+                if (StringUtils.isEmpty(creative.getCreativeid())) {
+                    continue;
+                }
+                JSONObject jo = new JSONObject();
+                jo.put("creativeid", creative.getCreativeid());
+                array.add(jo);
+            }
+            json.put("data", array);
+            json.put("message", "");
+        } else {
+            json.put("code", 1);
+            json.put("data", array);
+            json.put("message", "请求参数错误");
+        }
+        return JSON.toJSONString(json);
     }
 }

@@ -110,7 +110,7 @@ public class InMobi {
             /** 获取当前系统时间*/
             long startTime = System.currentTimeMillis();
             WebResponseResult responseResult = WebUtil.HttpRequestPost("http://api.w.inmobi.cn/showad/v3.1",
-                    JSON.toJSONString(imRequest), timeOut);
+                    JSON.toJSONString(imRequest));
             /** 获取当前的系统时间，与初始时间相减就是程序运行的毫秒数*/
             long endTime = System.currentTimeMillis();
             long usedTime = endTime - startTime;

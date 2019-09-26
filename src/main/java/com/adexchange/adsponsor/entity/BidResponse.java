@@ -87,13 +87,6 @@ public class BidResponse {
     }
 
     @Data
-    static class BidExtImage {
-        private Integer w;
-        private Integer h;
-        private String url;
-    }
-
-    @Data
     public static class BidNativeResponse {
         @JSONField(name = "native")
         private NativeResponse nativeResponse;

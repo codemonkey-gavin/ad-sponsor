@@ -60,7 +60,7 @@ public class Adview {
             /** 获取当前系统时间*/
             long startTime = System.currentTimeMillis();
             WebResponseResult responseResult = WebUtil.HttpRequestPost("http://online.quickh5.com/api/public/bid?token=57db835396764b2387d6368816634211",
-                    JSON.toJSONString(avRequest), timeOut);
+                    JSON.toJSONString(avRequest));
             /** 获取当前的系统时间，与初始时间相减就是程序运行的毫秒数*/
             long endTime = System.currentTimeMillis();
             long usedTime = endTime - startTime;

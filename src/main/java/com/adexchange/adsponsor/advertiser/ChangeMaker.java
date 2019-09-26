@@ -153,7 +153,7 @@ public class ChangeMaker {
             /** 获取当前系统时间*/
             long startTime = System.currentTimeMillis();
             WebResponseResult responseResult = WebUtil.HttpRequestPost("http://tling.bigdata-hub.cn:6688/105003",
-                    JSON.toJSONString(cmRequest), timeOut);
+                    JSON.toJSONString(cmRequest));
             /** 获取当前的系统时间，与初始时间相减就是程序运行的毫秒数*/
             long endTime = System.currentTimeMillis();
             long usedTime = endTime - startTime;
@@ -161,9 +161,10 @@ public class ChangeMaker {
             if (responseResult.getResult() == WebResponseResult.ResultEnum.SUCCESS.getValue()) {
                 CMResponse cmResponse = JSON.parseObject(responseResult.getResponse(), CMResponse.class);
 
-                log.info("请求ChangeMaker广告结束，耗时：{}，返回：{}", usedTime, responseResult.getResponse());
                 // 成功
                 if (cmResponse.getRcd() == 1) {
+                    log.info("请求ChangeMaker广告成功，耗时：{}", usedTime);
+
                     BidResponse.SeatBid seatBid = new BidResponse.SeatBid();
                     List<BidResponse.Bid> bids = new ArrayList<>();
                     for (CMResponse.Ad ad : cmResponse.getAd()) {
