@@ -185,6 +185,10 @@ public class AdDispatcherService {
                                 bid.put("exp", bidItem.getExp());
                             }
                             if (null != bidItem.getExt()) {
+                                if (StringUtils.isEmpty(bidItem.getExt().getTargeturl())) {
+                                    log.error("广告投放链接错误，{}", JSON.toJSONString(bidResponse));
+                                    return "";
+                                }
                                 JSONObject bidExt = new JSONObject();
                                 bidExt.put("admt", bidItem.getExt().getAdmt());
                                 bidExt.put("adct", bidItem.getExt().getAdct());

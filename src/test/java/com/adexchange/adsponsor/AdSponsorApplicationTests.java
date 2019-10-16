@@ -11,6 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import sun.misc.BASE64Encoder;
+
+import java.security.MessageDigest;
+import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -50,5 +54,25 @@ public class AdSponsorApplicationTests {
 
         String json = JSON.toJSONString(creativeMaterial);
         System.out.println(json);
+    }
+
+    @Test
+    public void uniqueCodeThree() {
+        try {
+            String str = UUID.randomUUID().toString().replaceAll("-", "");
+            System.out.println(str);
+            String s = UUID.randomUUID().toString();
+            //先进行MD5加密
+            MessageDigest md = MessageDigest.getInstance("md5");
+            //对数据进行加密
+            byte[] bs = md.digest(s.getBytes());
+            //采用数据指纹进一步加密，拿到的数据成为数据指纹
+            BASE64Encoder base = new BASE64Encoder();
+            String digitFingerprint = base.encode(bs);
+            System.out.println(digitFingerprint);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
